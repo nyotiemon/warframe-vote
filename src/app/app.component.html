@@ -1,20 +1,115 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
+  <logo>
+    <a class="logo navbar-brand" href="#">
+      <strong>Navbar</strong>
+    </a>
+  </logo>
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active waves-light" mdbRippleRadius>
+        <a class="nav-link">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Features</a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Pricing</a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Opinions</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-flex-icons">
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">
+          <i class="fa fa-facebook"></i>
+        </a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">
+          <i class="fa fa-instagram"></i>
+        </a>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
+<!-- Main -->
+<main>
+  <div class="container" style="height:1300px; margin-top: 55px;">
+    <!--Section: Features v.3-->
+    <section class="section feature-box">
 
+      <!--Section heading-->
+      <h1 class="section-heading pt-4">Why is it so great?</h1>
+      <!--Section description-->
+      <p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi,
+        veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam. Quia, minima?</p>
+
+      <!--Grid row-->
+      <div class="row features-small pt-2">
+
+        <!--Grid column-->
+        <div class="col-lg-5 mb-r center-on-small-only">
+          <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/ipad-portfolio2.png" alt="" class="img-fluid z-depth-0">
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-7">
+
+          <!--Grid row-->
+          <div class="row pb-3">
+            <div class="col-2 col-md-1">
+              <i class="fa fa-bank blue-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Safety</h5>
+              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
+                deleniti hic.</p>
+            </div>
+          </div>
+          <!--Grid row-->
+
+          <!--Grid row-->
+          <div class="row pb-3">
+            <div class="col-2 col-md-1">
+              <i class="fa fa-code blue-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Technology</h5>
+              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
+                deleniti hic.</p>
+            </div>
+          </div>
+          <!--Grid row-->
+
+          <!--Grid row-->
+          <div class="row pb-3">
+            <div class="col-2 col-md-1">
+              <i class="fa fa-money blue-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Finance</h5>
+              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
+                deleniti hic.</p>
+            </div>
+          </div>
+          <!--Grid row-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </section>
+    <!--Section: Features v.3-->
+  </div>
+</main>
