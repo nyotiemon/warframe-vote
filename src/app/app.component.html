@@ -1,115 +1,53 @@
-<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
-  <logo>
-    <a class="logo navbar-brand" href="#">
-      <strong>Navbar</strong>
-    </a>
-  </logo>
-  <links>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active waves-light" mdbRippleRadius>
-        <a class="nav-link">Home
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">Features</a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">Pricing</a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">Opinions</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav nav-flex-icons">
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">
-          <i class="fa fa-facebook"></i>
-        </a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">
-          <i class="fa fa-twitter"></i>
-        </a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">
-          <i class="fa fa-instagram"></i>
-        </a>
-      </li>
-    </ul>
-  </links>
-</mdb-navbar>
-<!-- Main -->
-<main>
-  <div class="container" style="height:1300px; margin-top: 55px;">
-    <!--Section: Features v.3-->
-    <section class="section feature-box">
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Voter</span>
 
-      <!--Section heading-->
-      <h1 class="section-heading pt-4">Why is it so great?</h1>
-      <!--Section description-->
-      <p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi,
-        veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam. Quia, minima?</p>
+    <span class="empty-spacer"></span>
 
-      <!--Grid row-->
-      <div class="row features-small pt-2">
+    <button mat-button>About</button>
+    <button mat-button>Services</button>
+    <button mat-button>Contact</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-        <!--Grid column-->
-        <div class="col-lg-5 mb-r center-on-small-only">
-          <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/ipad-portfolio2.png" alt="" class="img-fluid z-depth-0">
-        </div>
-        <!--Grid column-->
+<mat-card>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Search.." [matAutocomplete]="auto" [formControl]="searchingWeapon">
 
-        <!--Grid column-->
-        <div class="col-lg-7">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWeaponName">
+      <mat-option *ngFor="let weapon of (filteredWeaponList | async)" [value]="weapon">
 
-          <!--Grid row-->
-          <div class="row pb-3">
-            <div class="col-2 col-md-1">
-              <i class="fa fa-bank blue-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Safety</h5>
-              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
-                deleniti hic.</p>
-            </div>
-          </div>
-          <!--Grid row-->
+        <mat-grid-list cols="4" rowHeight="100px">
+          <mat-grid-tile [colspan]="2">
+            <div style="position: absolute; left: 5px;">{{ weapon.name }}</div>
+          </mat-grid-tile>
 
-          <!--Grid row-->
-          <div class="row pb-3">
-            <div class="col-2 col-md-1">
-              <i class="fa fa-code blue-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Technology</h5>
-              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
-                deleniti hic.</p>
-            </div>
-          </div>
-          <!--Grid row-->
+          <mat-grid-tile [colspan]="1">
+            <div style="position: absolute; right: 5px;">{{ wTypeDataService.wtypes[weapon.type - 1].name }}</div>
+          </mat-grid-tile>
 
-          <!--Grid row-->
-          <div class="row pb-3">
-            <div class="col-2 col-md-1">
-              <i class="fa fa-money blue-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Finance</h5>
-              <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda
-                deleniti hic.</p>
-            </div>
-          </div>
-          <!--Grid row-->
+          <mat-grid-tile [colspan]="1">
+            <div style="position: absolute; right: 5px;">{{ wClassDataService.wclass[weapon.class - 1].name }}</div>
+          </mat-grid-tile>
+        </mat-grid-list>
 
-        </div>
-        <!--Grid column-->
+      </mat-option>
+    </mat-autocomplete>
 
-      </div>
-      <!--Grid row-->
+  </mat-form-field>
 
-    </section>
-    <!--Section: Features v.3-->
-  </div>
-</main>
+  <mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile [colspan]="3" [rowspan]="1" style="background-color:lightblue">
+      one
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color:lightgreen">
+      two
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="3" [rowspan]="1" style="background-color:lightpink">
+      three
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</mat-card>

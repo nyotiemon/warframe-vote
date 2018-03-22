@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
+
 import { Weapon } from './weapons/weapon';
 import { WeaponDataService } from './weapons/weapon-data.service';
 import { WType } from './type/wtype';
@@ -15,10 +20,14 @@ import { GrabDataService } from './script/grab-data.service';
 })
 export class AppComponent implements OnInit {
 
+  searchingWeapon: FormControl = new FormControl();
+  filteredWeaponList: Observable<Weapon[]>;
+
   newWeapon: Weapon = new Weapon();
   newType: WType = new WType();
   newClass: WClass = new WClass();
   selectedWeapon: Weapon;
+
 
   constructor(private weaponDataService: WeaponDataService, private wTypeDataService: WTypeDataService,
     private wClassDataService: WClassDataService, private grabDataService: GrabDataService) {
@@ -77,7 +86,7 @@ export class AppComponent implements OnInit {
             this.newClass = (typeof item.Class === 'undefined') ? this.wClassDataService.getWClassByName(item.Type) : this.wClassDataService.getWClassByName(item.Class);
             if (typeof this.newClass === 'undefined') {
               if (typeof item.Class === 'undefined') { // cant read some arch weapon class
-                this.addClass(item.Type); 
+                this.addClass(item.Type);
               } else {
                 this.addClass(item.Class);
               }
@@ -97,6 +106,15 @@ export class AppComponent implements OnInit {
     });
   };
 
+  weaponFilter(val: string): Weapon[] {
+    return this.weaponDataService.weapons.filter(weapon =>
+      weapon.name.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  displayWeaponName(weapon?: Weapon): string | undefined {
+    return weapon ? weapon.name : undefined;
+  }
+
   ngOnInit() {
     this.grabDataService.fetchAndParseRemoteData()
       .then((DataToParse) => {
@@ -110,5 +128,12 @@ export class AppComponent implements OnInit {
       .catch(function (error) {
         console.log('omo! ', error);
       });
+
+    this.filteredWeaponList = this.searchingWeapon.valueChanges
+      .pipe(
+        startWith<string | Weapon>(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.weaponFilter(name) : this.weaponDataService.weapons.slice())
+      );
   }
 }
