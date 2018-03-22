@@ -6,8 +6,9 @@ export class Weapon {
     image: '';
     mastery: number;
     disposition: number;
-    fodder: number;
-    notfodder: number;
+    fodder: number = 0;
+    notfodder: number = 0;
+    legitVote: number = 0;
 
     constructor(values: Object = {}) {
       Object.assign(this, values);
