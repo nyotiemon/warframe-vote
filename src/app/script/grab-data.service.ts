@@ -95,45 +95,20 @@ export class GrabDataService {
         });
     };
 
-    parseData = (data: any) => {
-        // all data(key, value). value with typeOf array is printed as Object (ex: Cost, NormalAttack)
-    
-        for(let key in data) {
-          // here got the key : IgnoreInCount / Weapons / Stances / Augments
-    
-          if(data[key] instanceof Array) for(let item of data[key]) { // if inside data doesnt have an array (object)
-            // console.log("[" + oui++ + "] : ", item);
-    
-            if(typeof item.Name === 'undefined') { continue; } else {
-              const id = item.Name.replace(/[^\w_-]+/g, '_').replace(/(^_+)|(_+$)/g, '').toLocaleLowerCase();
-              // fs.writeJsonSync(`${rootDir}/${key}/${id}.json`, item, { spaces: 2 });
-            }
-          } else for(let itemKey in data[key]) { // if inside of data have an array
-            const item = data[key][itemKey];
-            // console.log("[" + oui++ + "]- Name : ", item.Name + ", Type : ", item.Type + ", Class : ", item.Class + ", Disposition : ", item.Disposition + ", Image : ", item.Image);
-    
-            if(typeof item.Name === 'undefined') { continue; } else {
-              const id = item.Name.replace(/[^\w_-]+/g, '_').replace(/(^_+)|(_+$)/g, '').toLocaleLowerCase();
-              // fs.writeJsonSync(`${rootDir}/${key}/${id}.json`, item, { spaces: 2 });
-            }
-          }
-        }
-    };
-
-    fetchAndParseData = () => {
+    fetchAndParseRemoteData = () => {
         return new Promise((resolve, reject) => {
-            const url = 'https://cors-anywhere.herokuapp.com/http://warframe.wikia.com/wiki/Module:Weapons/data?action=raw';
-    
+            const url = 'https://cors-anywhere.herokuapp.com/http://warframe.wikia.com/wiki/Module:Weapons/data?action=raw'; // bad solution to solve CORS in XMLHttpRequest
+
             this.load(url)
-                .then((thebody: string) => {    
+                .then((thebody: string) => {
                     const match = thebody.match(/{(?:.|\n)+}/);
                     if (!match) throw new Error('cant find data!');
-    
-                    const table = match[0];
-                    const obj = this.toJS(table).then((jsonData) => { 
-                        this.grabbedData = jsonData; 
 
+                    const table = match[0];
+                    const obj = this.toJS(table).then((jsonData) => {
                         console.log('/r/tippytaps/ ');
+                        this.grabbedData = jsonData;
+
                         resolve(jsonData);
                     });
                 })
@@ -143,8 +118,4 @@ export class GrabDataService {
                 });
         });
     };
-
-    intoFile = () => {
-
-    }
 };
