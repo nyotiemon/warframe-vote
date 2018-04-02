@@ -3,6 +3,29 @@
     flex: 1 1 auto;
 }
 
+mat-card.half-screen {
+    width: 900px;
+    margin: 15px;
+}
+
 .full-width {
     width: 100%;
+}
+
+mat-card-header {
+    margin-bottom: 10px;
+}
+
+mat-card-actions {
+    margin: 0px;
+}
+
+.mat-card>.mat-card-actions:last-child {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+button.width-50 {
+    width: 50%;
+    height: 5em;
 }

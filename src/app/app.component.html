@@ -10,44 +10,83 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-card>
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Search.." [matAutocomplete]="auto" [formControl]="searchingWeapon">
+<md-content class="md-padding" layout-md="column" layout="row" layout-align="center center">
 
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWeaponName">
-      <mat-option *ngFor="let weapon of (filteredWeaponList | async)" [value]="weapon">
+  <div flex-lg flex-gt-lg="40" layout="column" layout-align="center center">
 
+    <mat-card class="half-screen">
+      <mat-form-field class="full-width">
+        <mat-card-header>
+          <input matInput placeholder="Search.." [matAutocomplete]="auto" [formControl]="searchingWeapon" [(ngModel)]="selectedWeapon" [ngModelOptions]="{ updateOn: 'blur' }">
+
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWeaponName">
+            <mat-option *ngFor="let weapon of (filteredWeaponList | async)" [value]="weapon">
+
+              <mat-grid-list cols="4" rowHeight="100px">
+                <mat-grid-tile [colspan]="2">
+                  <div style="position: absolute; left: 5px;">{{ weapon.name }}</div>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1">
+                  <div style="position: absolute; right: 5px;">{{ wTypeDataService.wtypes[weapon.type - 1].name }}</div>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1">
+                  <div style="position: absolute; right: 5px;">{{ wClassDataService.wclass[weapon.class - 1].name }}</div>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+            </mat-option>
+          </mat-autocomplete>
+        </mat-card-header>
+      </mat-form-field>
+
+      <mat-card-content>
         <mat-grid-list cols="4" rowHeight="100px">
-          <mat-grid-tile [colspan]="2">
-            <div style="position: absolute; left: 5px;">{{ weapon.name }}</div>
+          <mat-grid-tile [colspan]="2" [rowspan]="4" style="background-color:lightblue">
+            <span *ngIf="selectedWeapon !== undefined; else emptyImageBlock">
+              {{ selectedWeapon.image }}
+            </span>
+            <ng-template #emptyImageBlock>Image</ng-template>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1">
-            <div style="position: absolute; right: 5px;">{{ wTypeDataService.wtypes[weapon.type - 1].name }}</div>
+          <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color:lightgreen">
+            <span *ngIf="selectedWeapon !== undefined; else emptyBlock">
+              {{ getWeaponTypeName(selectedWeapon) }}
+            </span>
+            <ng-template #emptyBlock>-</ng-template>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1">
-            <div style="position: absolute; right: 5px;">{{ wClassDataService.wclass[weapon.class - 1].name }}</div>
+          <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color:lightgreen">
+            <span *ngIf="selectedWeapon !== undefined; else emptyBlock">
+              {{ getWeaponClassName(selectedWeapon) }}
+            </span>
           </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color:lightpink">
+            <span *ngIf="selectedWeapon !== undefined; else emptyBlock">
+              {{ selectedWeapon.disposition }}
+            </span>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color:lightpink">
+            <span *ngIf="selectedWeapon !== undefined; else emptyBlock">
+              {{ selectedWeapon.mastery }}
+            </span>
+          </mat-grid-tile>
+
         </mat-grid-list>
+      </mat-card-content>
 
-      </mat-option>
-    </mat-autocomplete>
 
-  </mat-form-field>
+      <mat-card-actions layout="row" layout-align="center">
+        <div flex-lg flex-gt-lg="40" layout="row" layout-align="center center">
+          <button mat-raised-button class="width-50" color="warn">MR-fodder</button>
+          <button mat-raised-button class="width-50" color="primary">Build it!</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
 
-  <mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile [colspan]="3" [rowspan]="1" style="background-color:lightblue">
-      one
-    </mat-grid-tile>
+  </div>
 
-    <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color:lightgreen">
-      two
-    </mat-grid-tile>
-
-    <mat-grid-tile [colspan]="3" [rowspan]="1" style="background-color:lightpink">
-      three
-    </mat-grid-tile>
-
-  </mat-grid-list>
-</mat-card>
+</md-content>

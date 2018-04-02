@@ -3,7 +3,15 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatAutocompleteModule, MatInputModule, MatButtonModule, MatToolbarModule, MatProgressSpinnerModule, MatDividerModule, MatGridListModule, MatCardModule } from '@angular/material';
+import { MatAutocompleteModule, 
+  MatInputModule, 
+  MatButtonModule, 
+  MatToolbarModule, 
+  MatProgressSpinnerModule, 
+  MatDividerModule, 
+  MatGridListModule, 
+  MatCardModule,
+  MatButtonToggleModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 
@@ -25,6 +33,7 @@ import { AppComponent } from './app.component';
     MatDividerModule,
     MatGridListModule, 
     MatCardModule, 
+    MatButtonToggleModule,
   ],
   exports: [
     BrowserModule,
@@ -38,6 +47,8 @@ import { AppComponent } from './app.component';
     MatAutocompleteModule,
     MatDividerModule,
     MatGridListModule, 
+    MatCardModule, 
+    MatButtonToggleModule,
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [],

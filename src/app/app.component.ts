@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     this.wClassDataService.addWClass(this.newClass);
   };
 
-  addWeapon(typeId, classId, name, image, mastery, disposition) {
+  addWeapon(typeId: number, classId: number, name, image, mastery, disposition) {
     this.newWeapon = new Weapon();
     this.newWeapon.type = typeId;
     this.newWeapon.class = classId;
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
           // process the data as if collection is empty. register everything a new.
           if (typeof item.Name === 'undefined') { continue; } else {
             // check if wtype exist
-            let thisWeaponTypeId: Number;
+            let thisWeaponTypeId: number;
             this.newType = this.wTypeDataService.getWTypeByName(item.Type);
             if (typeof this.newType === 'undefined') {
               this.addType(item.Type);
@@ -81,7 +81,7 @@ export class AppComponent implements OnInit {
             }
 
             // check if wclass exist
-            let thisWeaponClassId: Number;
+            let thisWeaponClassId: number;
             // cant read some arch weapon class
             this.newClass = (typeof item.Class === 'undefined') ? this.wClassDataService.getWClassByName(item.Type) : this.wClassDataService.getWClassByName(item.Class);
             if (typeof this.newClass === 'undefined') {
@@ -116,18 +116,41 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.grabDataService.fetchAndParseRemoteData()
-      .then((DataToParse) => {
-        console.log('*ba dum tss* ', DataToParse);
+    // this.grabDataService.fetchAndParseRemoteData()
+    //   .then((DataToParse) => {
+    //     console.log('*ba dum tss* ', DataToParse);
 
-        this.parseJsonData(DataToParse);
-        console.log("weapons: ", this.weaponDataService.weapons);
-        console.log("type: ", this.wTypeDataService.wtypes);
-        console.log("class:", this.wClassDataService.wclass);
-      })
-      .catch(function (error) {
-        console.log('omo! ', error);
-      });
+    //     this.parseJsonData(DataToParse);
+    //     console.log("weapons: ", this.weaponDataService.weapons);
+    //     console.log("type: ", this.wTypeDataService.wtypes);
+    //     console.log("class:", this.wClassDataService.wclass);
+    //   })
+    //   .catch(function (error) {
+    //     console.log('omo! ', error);
+    //   });
+
+      this.addType("Primary");
+      this.addType("Secondary");
+      this.addType("Melee");
+
+      this.addClass("Shotgun");
+      this.addClass("Rifle");
+      this.addClass("Pistol");
+      this.addClass("Whip");
+      this.addClass("Nikana");
+
+      this.addWeapon(1, 1, "Tigris", "Tigris.jpg", 10, 1);
+      this.addWeapon(1, 1, "Sobek", "Sobek.jpg", 5, 2);
+      this.addWeapon(1, 2, "Soma", "Soma.jpg", 15, 4);
+      this.addWeapon(1, 2, "Synoid Simulor", "SynoidSimulor.jpg", 12, 1);
+      this.addWeapon(2, 3, "Lex", "Lex.jpg", 3, 2);
+      this.addWeapon(2, 3, "Aklex", "Akex.jpg", 8, 4);
+      this.addWeapon(3, 4, "Atterax", "Atterax.jpg", 9, 1);
+      this.addWeapon(3, 5, "Nikana Prime", "NikanaPrime.jpg", 9, 1);
+      
+      console.log("weapons: ", this.weaponDataService.weapons);
+      console.log("type: ", this.wTypeDataService.wtypes);
+      console.log("class:", this.wClassDataService.wclass);
 
     this.filteredWeaponList = this.searchingWeapon.valueChanges
       .pipe(
@@ -135,5 +158,23 @@ export class AppComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.name),
         map(name => name ? this.weaponFilter(name) : this.weaponDataService.weapons.slice())
       );
+  }
+
+  getWeaponTypeName(weapon: Weapon): String {
+    if (typeof weapon === 'undefined') return "";
+
+    let thisWeaponType: WType = this.wTypeDataService.getWTypeById(weapon.type);
+    if (typeof thisWeaponType === 'undefined') return "";
+
+    return thisWeaponType.name;
+  }
+
+  getWeaponClassName(weapon: Weapon): String {
+    if (typeof weapon === 'undefined') return "";
+
+    let thisWeaponClass: WClass = this.wClassDataService.getWClassById(weapon.class);
+    if (typeof thisWeaponClass === 'undefined') return "";
+
+    return thisWeaponClass.name;
   }
 }

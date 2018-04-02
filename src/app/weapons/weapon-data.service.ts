@@ -6,7 +6,7 @@ export class WeaponDataService {
 
   // Placeholder for last id so we can simulate
   // automatic incrementing of id's
-  lastId = 0;
+  lastId: number = 0;
 
   // Placeholder for weapon's
   weapons: Weapon[] = [];
