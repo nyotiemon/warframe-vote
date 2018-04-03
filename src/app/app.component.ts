@@ -5,11 +5,11 @@ import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
-import { Weapon } from './weapons/weapon';
+import { Weapon, baseweapon } from './weapons/weapon';
 import { WeaponDataService } from './weapons/weapon-data.service';
-import { WType } from './type/wtype';
+import { WType, basetype } from './type/wtype';
 import { WTypeDataService } from './type/wtype-data.service';
-import { WClass } from './class/wclass';
+import { WClass, baseclass } from './class/wclass';
 import { WClassDataService } from './class/wclass-data.service';
 import { GrabDataService } from './script/grab-data.service';
 
@@ -20,6 +20,8 @@ import { GrabDataService } from './script/grab-data.service';
   providers: [WeaponDataService, WTypeDataService, WClassDataService, GrabDataService]
 })
 export class AppComponent implements OnInit {
+  weaponCollection: AngularFirestoreCollection<baseweapon>;
+  dbweapons: Observable<Weapon[]>;
 
   searchingWeapon: FormControl = new FormControl();
   filteredWeaponList: Observable<Weapon[]>;
@@ -31,7 +33,8 @@ export class AppComponent implements OnInit {
 
 
   constructor(private weaponDataService: WeaponDataService, private wTypeDataService: WTypeDataService,
-    private wClassDataService: WClassDataService, private grabDataService: GrabDataService) {
+    private wClassDataService: WClassDataService, private grabDataService: GrabDataService,
+    private db: AngularFirestore) {
   }
 
   addType(name) {
@@ -129,6 +132,12 @@ export class AppComponent implements OnInit {
     //   .catch(function (error) {
     //     console.log('omo! ', error);
     //   });
+    
+      this.weaponCollection = this.db.collection('/weapons');
+      this.dbweapons = this.weaponCollection.valueChanges();
+      console.log("1: ", this.dbweapons);
+      this.db.collection('weapon').add({'id': 1, 'name':'wow'});
+      console.log("2: ", this.dbweapons);
 
       this.addType("Primary");
       this.addType("Secondary");

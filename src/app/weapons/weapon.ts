@@ -1,4 +1,4 @@
-export class Weapon {
+export class Weapon implements baseweapon {
     id : number;
     type : number;
     class: number;
@@ -8,9 +8,22 @@ export class Weapon {
     disposition: number;
     fodder: number = 0;
     notfodder: number = 0;
-    legitVote: number = 0;
+    legitvote: number = 0;
 
     constructor(values: Object = {}) {
       Object.assign(this, values);
     }
+}
+
+export interface baseweapon {
+  id : number;
+  type : number;
+  class: number;
+  name: '';
+  image: '';
+  mastery: number;
+  disposition: number;
+  fodder: number;
+  notfodder: number;
+  legitvote: number;
 }
