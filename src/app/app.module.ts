@@ -15,6 +15,10 @@ import { MatAutocompleteModule,
 
 import { AppComponent } from './app.component';
 
+import { environment } from './../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { AppComponent } from './app.component';
     MatGridListModule, 
     MatCardModule, 
     MatButtonToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   exports: [
     BrowserModule,
