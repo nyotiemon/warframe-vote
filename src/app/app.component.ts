@@ -21,7 +21,8 @@ import { GrabDataService } from './script/grab-data.service';
 })
 export class AppComponent implements OnInit {
   weaponCollection: AngularFirestoreCollection<baseweapon>;
-  dbweapons: Observable<Weapon[]>;
+  typeCollection: AngularFirestoreCollection<basetype>;
+  classCollection: AngularFirestoreCollection<baseclass>;
 
   searchingWeapon: FormControl = new FormControl();
   filteredWeaponList: Observable<Weapon[]>;
@@ -41,12 +42,18 @@ export class AppComponent implements OnInit {
     this.newType = new WType();
     this.newType.name = name;
     this.wTypeDataService.addWType(this.newType);
+
+    // let data = JSON.parse(JSON.stringify(this.newType));
+    // this.typeCollection.add(data);
   };
 
   addClass(name) {
     this.newClass = new WClass();
     this.newClass.name = name;
     this.wClassDataService.addWClass(this.newClass);
+
+    // let data = JSON.parse(JSON.stringify(this.newClass));
+    // this.classCollection.add(data);
   };
 
   addWeapon(typeId: number, classId: number, name, image, mastery, disposition) {
@@ -59,7 +66,9 @@ export class AppComponent implements OnInit {
     this.newWeapon.disposition = disposition;
 
     this.weaponDataService.addWeapon(this.newWeapon);
-    // console.log('this weapon added', this.newWeapon);
+
+    // let data = JSON.parse(JSON.stringify(this.newWeapon));
+    // this.weaponCollection.add(data);
   };
 
   parseJsonData = (data: any) => {
@@ -133,11 +142,9 @@ export class AppComponent implements OnInit {
     //     console.log('omo! ', error);
     //   });
     
-      this.weaponCollection = this.db.collection('/weapons');
-      this.dbweapons = this.weaponCollection.valueChanges();
-      console.log("1: ", this.dbweapons);
-      this.db.collection('weapon').add({'id': 1, 'name':'wow'});
-      console.log("2: ", this.dbweapons);
+      this.weaponCollection = this.db.collection('weapons');
+      this.typeCollection = this.db.collection('types');
+      this.classCollection = this.db.collection('class');
 
       this.addType("Primary");
       this.addType("Secondary");
