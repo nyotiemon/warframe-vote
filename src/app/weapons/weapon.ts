@@ -10,7 +10,7 @@ export class Weapon implements baseweapon {
     notfodder: number = 0;
     legitvote: number = 0;
 
-    constructor(values: Object = {}) {
+    constructor(values?: Partial<Weapon>) {
       Object.assign(this, values);
     }
 }

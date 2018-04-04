@@ -43,8 +43,8 @@ export class AppComponent implements OnInit {
     this.newType.name = name;
     this.wTypeDataService.addWType(this.newType);
 
-    // let data = JSON.parse(JSON.stringify(this.newType));
-    // this.typeCollection.add(data);
+    let data = JSON.parse(JSON.stringify(this.newType));
+    this.typeCollection.add(data);
   };
 
   addClass(name) {
@@ -52,8 +52,8 @@ export class AppComponent implements OnInit {
     this.newClass.name = name;
     this.wClassDataService.addWClass(this.newClass);
 
-    // let data = JSON.parse(JSON.stringify(this.newClass));
-    // this.classCollection.add(data);
+    let data = JSON.parse(JSON.stringify(this.newClass));
+    this.classCollection.add(data);
   };
 
   addWeapon(typeId: number, classId: number, name, image, mastery, disposition) {
@@ -67,8 +67,8 @@ export class AppComponent implements OnInit {
 
     this.weaponDataService.addWeapon(this.newWeapon);
 
-    // let data = JSON.parse(JSON.stringify(this.newWeapon));
-    // this.weaponCollection.add(data);
+    let data = JSON.parse(JSON.stringify(this.newWeapon));
+    this.weaponCollection.add(data);
   };
 
   parseJsonData = (data: any) => {
@@ -141,33 +141,42 @@ export class AppComponent implements OnInit {
     //   .catch(function (error) {
     //     console.log('omo! ', error);
     //   });
-    
-      this.weaponCollection = this.db.collection('weapons');
-      this.typeCollection = this.db.collection('types');
-      this.classCollection = this.db.collection('class');
 
-      this.addType("Primary");
-      this.addType("Secondary");
-      this.addType("Melee");
+    // this.addType("Primary");
+    // this.addType("Secondary");
+    // this.addType("Melee");
 
-      this.addClass("Shotgun");
-      this.addClass("Rifle");
-      this.addClass("Pistol");
-      this.addClass("Whip");
-      this.addClass("Nikana");
+    // this.addClass("Shotgun");
+    // this.addClass("Rifle");
+    // this.addClass("Pistol");
+    // this.addClass("Whip");
+    // this.addClass("Nikana");
 
-      this.addWeapon(1, 1, "Tigris", "Tigris.jpg", 10, 1);
-      this.addWeapon(1, 1, "Sobek", "Sobek.jpg", 5, 2);
-      this.addWeapon(1, 2, "Soma", "Soma.jpg", 15, 4);
-      this.addWeapon(1, 2, "Synoid Simulor", "SynoidSimulor.jpg", 12, 1);
-      this.addWeapon(2, 3, "Lex", "Lex.jpg", 3, 2);
-      this.addWeapon(2, 3, "Aklex", "Akex.jpg", 8, 4);
-      this.addWeapon(3, 4, "Atterax", "Atterax.jpg", 9, 1);
-      this.addWeapon(3, 5, "Nikana Prime", "NikanaPrime.jpg", 9, 1);
-      
+    // this.addWeapon(1, 1, "Tigris", "Tigris.jpg", 10, 1);
+    // this.addWeapon(1, 1, "Sobek", "Sobek.jpg", 5, 2);
+    // this.addWeapon(1, 2, "Soma", "Soma.jpg", 15, 4);
+    // this.addWeapon(1, 2, "Synoid Simulor", "SynoidSimulor.jpg", 12, 1);
+    // this.addWeapon(2, 3, "Lex", "Lex.jpg", 3, 2);
+    // this.addWeapon(2, 3, "Aklex", "Akex.jpg", 8, 4);
+    // this.addWeapon(3, 4, "Atterax", "Atterax.jpg", 9, 1);
+    // this.addWeapon(3, 5, "Nikana Prime", "NikanaPrime.jpg", 9, 1);
+
+    this.weaponCollection = this.db.collection('weapons');
+    this.typeCollection = this.db.collection('types');
+    this.classCollection = this.db.collection('class');
+
+    this.weaponCollection.valueChanges().subscribe(res => {
+      res.forEach((x: baseweapon) => this.weaponDataService.weapons.push(new Weapon(x)));
       console.log("weapons: ", this.weaponDataService.weapons);
+    })
+    this.typeCollection.valueChanges().subscribe(res => {
+      res.forEach((x: basetype) => this.wTypeDataService.wtypes.push(new WType(x)));
       console.log("type: ", this.wTypeDataService.wtypes);
+    })
+    this.classCollection.valueChanges().subscribe(res => {
+      res.forEach((x: baseclass) => this.wClassDataService.wclass.push(new WClass(x)));
       console.log("class:", this.wClassDataService.wclass);
+    });
 
     this.filteredWeaponList = this.searchingWeapon.valueChanges
       .pipe(

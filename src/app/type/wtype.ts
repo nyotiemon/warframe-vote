@@ -2,7 +2,7 @@ export class WType implements basetype {
     id : number;
     name: '';
 
-    constructor(values: Object = {}) {
+    constructor(values?: Partial<WType>) {
       Object.assign(this, values);
     }
 }

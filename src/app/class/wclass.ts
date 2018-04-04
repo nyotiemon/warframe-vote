@@ -2,7 +2,7 @@ export class WClass implements baseclass {
     id : number;
     name: '';
 
-    constructor(values: Object = {}) {
+    constructor(values?: Partial<WClass>) {
       Object.assign(this, values);
     }
 }

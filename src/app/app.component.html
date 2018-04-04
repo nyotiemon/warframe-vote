@@ -28,11 +28,11 @@
                 </mat-grid-tile>
 
                 <mat-grid-tile [colspan]="1">
-                  <div style="position: absolute; right: 5px;">{{ wTypeDataService.wtypes[weapon.type - 1].name }}</div>
+                  <div style="position: absolute; right: 5px;">{{ getWeaponTypeName(weapon) }}</div>
                 </mat-grid-tile>
 
                 <mat-grid-tile [colspan]="1">
-                  <div style="position: absolute; right: 5px;">{{ wClassDataService.wclass[weapon.class - 1].name }}</div>
+                  <div style="position: absolute; right: 5px;">{{ getWeaponClassName(weapon) }}</div>
                 </mat-grid-tile>
               </mat-grid-list>
 
